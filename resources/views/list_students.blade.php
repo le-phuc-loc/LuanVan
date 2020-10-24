@@ -22,11 +22,69 @@
         td:last-child {
             text-align: center
         }
+
+        .btn-check {
+            position: fixed;
+            bottom: 50px;
+            right: 20px;
+            z-index: 99;
+            font-size: 20px;
+            border: none;
+            outline: none;
+            background-color: red;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
+
+        <!-- Modal Add Image -->
+        <div class="modal fade" id="modaladd">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add image</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <form id="frmCreate" action="" method="POST" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="customFile">Icon</label>
+                                <div class="custom-file">
+                                    <input id="icon_pro" type="file" class="custom-file-input file-upload @error('icon_pro') is-invalid @enderror" name="icon_pro">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                    @error('icon_pro')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="icon img-thumbnail" alt="icon">
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer border-top-0 d-flex justify-content-center">
+                            <button id="btnAdd" type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- DataTales -->
         <div class="card shadow mb-4 mt-5">
             <div class="card-header py-3 d-inline-flex justify-content-between align-items-center" id="test">
@@ -69,9 +127,9 @@
                                 <td>{{ $l->student->email }}</td>
 
                                 @if (in_array($l->student->student_code, $attend))
-                                    <td>yes</td>
+                                <td>yes</td>
                                 @else
-                                    <td>asdasda</td>
+                                <td>no</td>
                                 @endif
 
                             </tr>
@@ -81,6 +139,8 @@
                 </div>
             </div>
         </div>
+        <button class="btn-check btn btn-outline-dark" data-toggle="modal" data-target="#modaladd"><i class="fas fa-user-check"></i></button>
+        <!-- <a class="btn-check btn-success text-white" id="check" href=""><i class="fas fa-user-check"></i></a> -->
     </div>
 
     <script src="/vendor/jquery/jquery.min.js"></script>
@@ -98,6 +158,37 @@
 
     <!-- Page level custom scripts -->
     <script src="/js/demo/datatables-demo.js"></script>
+
+    <!-- <script>
+        $(document).ready(function() {
+            $("#check").click(function() {
+                alert("The paragraph was clicked.");
+            });
+        });
+    </script> -->
+
+    <script>
+        $(document).ready(function() {
+
+
+            var readURL = function(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('.icon').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+
+            $(".file-upload").on('change', function() {
+                readURL(this);
+            });
+        });
+    </script>
 </body>
 
 </html>

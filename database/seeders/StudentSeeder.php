@@ -29,10 +29,10 @@ class StudentSeeder extends Seeder
             'email' => 'locb1605396@student.ctu.edu.vn'
         ]);
         $faker = Faker::create();
-        for ($i = 1607100; $i <= 1607142; $i++) {
+        for ($i = 1700001; $i <= 1700043; $i++) {
             $gender = $faker->randomElement(['Nam', 'Nữ']);
             DB::table('students')->insert([
-                'student_code' => 'B' . $i,
+                'student_code' => 'b' . $i,
                 'full_name' => $faker->name,
                 'gender' => $gender,
                 'email' => $faker->unique()->freeEmail,
