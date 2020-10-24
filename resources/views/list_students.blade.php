@@ -67,7 +67,13 @@
                                 <td>{{ $l->student->full_name }}</td>
                                 <td>{{ $l->student->gender }}</td>
                                 <td>{{ $l->student->email }}</td>
-                                <td></td>
+
+                                @if (in_array($l->student->student_code, $attend))
+                                    <td>yes</td>
+                                @else
+                                    <td>asdasda</td>
+                                @endif
+
                             </tr>
                             @endforeach
                         </tbody>
